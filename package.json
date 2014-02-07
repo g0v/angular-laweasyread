@@ -1,0 +1,31 @@
+{
+  "name": "angular-laweasyread",
+  "version": "0.0.0",
+  "description": "This is an angular directive of [laweasyread](https://github.com/g0v/laweasyread-front).",
+  "main": "src/laweasyread.ls",
+  "scripts": {
+    "prepublish": "lsc -bc gulpfile.ls",
+    "start": "gulp",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/g0v/angular-laweasyread.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/g0v/angular-laweasyread/issues"
+  },
+  "homepage": "https://github.com/g0v/angular-laweasyread",
+  "devDependencies": {
+    "gulp-livescript": "~0.1.1",
+    "gulp-util": "~2.2.14",
+    "gulp": "~3.5.2",
+    "gulp-livereload": "~1.0.1",
+    "gulp-jade": "~0.4.1",
+    "tiny-lr": "0.0.5",
+    "express": "~3.4.8",
+    "connect-livereload": "~0.3.2"
+  }
+}
