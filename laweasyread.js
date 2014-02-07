@@ -3,7 +3,8 @@
     return {
       restrict: 'A',
       link: function(scope, elem, attrs){
-        return console.log(elem.text());
+        console.log(scope);
+        return LER.parse(elem[0]);
       }
     };
   });
