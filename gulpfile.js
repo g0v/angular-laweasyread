@@ -15,14 +15,14 @@ LIVERELOADPORT = 35729;
 gulp.task('jade', function(){
   return gulp.src('src/*.jade').pipe(gulpJade({
     pretty: true
-  })).pipe(gulp.dest('dist/')).pipe(gulpLivereload(server));
+  })).pipe(gulp.dest('.')).pipe(gulpLivereload(server));
 });
 gulp.task('ls', function(){
-  return gulp.src('src/*.ls').pipe(gulpLivescript()).pipe(gulp.dest('dist/'));
+  return gulp.src('src/*.ls').pipe(gulpLivescript()).pipe(gulp.dest('.'));
 });
 gulp.task('express', function(){
   app.use(require('connect-livereload')());
-  app.use(express['static'](path.resolve('./dist')));
+  app.use(express['static'](path.resolve('.')));
   app.listen(EXPRESSPORT);
   return gulpUtil.log('Listening on port: ' + EXPRESSPORT);
 });

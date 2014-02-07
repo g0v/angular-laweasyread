@@ -17,17 +17,17 @@ LIVERELOADPORT = 35729
 gulp.task \jade, ->
   gulp.src \src/*.jade
     .pipe gulp-jade pretty: true
-    .pipe gulp.dest \dist/
+    .pipe gulp.dest \.
     .pipe gulp-livereload server
 
 gulp.task \ls, ->
   gulp.src \src/*.ls
     .pipe gulp-livescript!
-    .pipe gulp.dest \dist/
+    .pipe gulp.dest \.
 
 gulp.task \express, ->
   app.use require('connect-livereload')!
-  app.use  express.static path.resolve \./dist
+  app.use  express.static path.resolve \.
   app.listen EXPRESSPORT
   gulp-util.log 'Listening on port: ' + EXPRESSPORT
 
