@@ -1,18 +1,12 @@
 angular.module 'app.directives' []
-.directive \lawEasyRead <[$compile]> ++ ($compile) ->
+.directive \lawEasyRead ->
   restrict: \A
-  link: (scope, elem, attrs) ->
-    scope.toggle = ->
-      scope.$eval "enabled=#{not scope.enabled}"
-    attrs.$observe \lawEasyRead ->
-      scope.$eval "enabled=#it"
-    (el = elem.clone!)
-      .removeAttr \law-easy-read
-      .removeAttr \ng-hide
-      .attr \law-after-easy-read  true
-      .attr \ng-show              \enabled
-    elem.after $compile(el)(scope)
-.directive \lawAfterEasyRead ->
+  link: (scope, elem) !-> LER.parse elem.0
+.directive \togglableLawEasyRead ->
+  transclude: true
+  template: '<div ng-transclude ng-hide="enabled"></div><div ng-transclude ng-show="enabled" law-easy-read></div>'
   restrict: \A
-  link: (scope, elem, attrs) ->
-    LER.parse elem.0
+  scope: true
+  link: (scope, elem, attrs) !->
+    scope.$watch attrs.enabled, !->
+      scope.enabled = it

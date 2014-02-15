@@ -1,24 +1,21 @@
 (function(){
-  angular.module('app.directives', []).directive('lawEasyRead', ['$compile'].concat(function($compile){
+  angular.module('app.directives', []).directive('lawEasyRead', function(){
     return {
       restrict: 'A',
-      link: function(scope, elem, attrs){
-        var el;
-        scope.toggle = function(){
-          return scope.$eval("enabled=" + !scope.enabled);
-        };
-        attrs.$observe('lawEasyRead', function(it){
-          return scope.$eval("enabled=" + it);
-        });
-        (el = elem.clone()).removeAttr('law-easy-read').removeAttr('ng-hide').attr('law-after-easy-read', true).attr('ng-show', 'enabled');
-        return elem.after($compile(el)(scope));
+      link: function(scope, elem){
+        LER.parse(elem[0]);
       }
     };
-  })).directive('lawAfterEasyRead', function(){
+  }).directive('togglableLawEasyRead', function(){
     return {
+      transclude: true,
+      template: '<div ng-transclude ng-hide="enabled"></div><div ng-transclude ng-show="enabled" law-easy-read></div>',
       restrict: 'A',
+      scope: true,
       link: function(scope, elem, attrs){
-        return LER.parse(elem[0]);
+        scope.$watch(attrs.enabled, function(it){
+          scope.enabled = it;
+        });
       }
     };
   });
