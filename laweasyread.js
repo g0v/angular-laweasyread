@@ -13,6 +13,11 @@
       restrict: 'A',
       scope: true,
       link: function(scope, elem, attrs){
+        scope.$on('LER:toggle', function(e, v){
+          return scope.enabled = v === undefined
+            ? !scope.enabled
+            : !!v;
+        });
         scope.$watch(attrs.enabled, function(it){
           scope.enabled = it;
         });
