@@ -3,13 +3,14 @@
     return {
       restrict: 'A',
       link: function(scope, elem){
+        console.log(elem.text());
         LER.parse(elem[0]);
       }
     };
   }).directive('togglableLawEasyRead', function(){
     return {
       transclude: true,
-      template: '<div ng-transclude ng-hide="enabled"></div><div ng-transclude ng-show="enabled" law-easy-read></div>',
+      template: '<span ng-transclude ng-hide="enabled"></span><span ng-transclude ng-show="enabled" law-easy-read></span>',
       restrict: 'A',
       scope: true,
       link: function(scope, elem, attrs){
@@ -18,7 +19,7 @@
             ? !scope.enabled
             : !!v;
         });
-        scope.$watch(attrs.enabled, function(it){
+        scope.$watch(attrs.togglableLawEasyRead, function(it){
           scope.enabled = it;
         });
       }

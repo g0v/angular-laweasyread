@@ -22,7 +22,7 @@ gulp.task('jade', function(){
 gulp.task('ls', function(){
   return gulp.src('src/*.ls').pipe(gulpLivescript()).pipe(gulp.dest('.'));
 });
-gulp.task('build', function(){
+gulp.task('build', ['ls'], function(){
   return gulp.src(['lib/laweasyread.debug.js', 'laweasyread.js']).pipe(gulpConcat('angular-laweasyread.js')).pipe(gulpUglify()).pipe(gulp.dest('.'));
 });
 gulp.task('express', function(){
@@ -31,13 +31,13 @@ gulp.task('express', function(){
   app.listen(EXPRESSPORT);
   return gulpUtil.log('Listening on port: ' + EXPRESSPORT);
 });
-gulp.task('watch', function(){
+gulp.task('watch', ['jade', 'build'], function(){
   return server.listen(LIVERELOADPORT, function(it){
     if (it) {
       return gulpUtil.log(it);
     }
     gulp.watch('src/*.jade', ['jade']);
-    return gulp.watch('src/*.ls', ['ls']);
+    return gulp.watch('src/*.ls', ['build']);
   });
 });
-gulp.task('default', ['jade', 'ls', 'build', 'express', 'watch']);
+gulp.task('default', ['express', 'watch']);

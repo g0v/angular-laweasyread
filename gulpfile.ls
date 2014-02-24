@@ -27,7 +27,7 @@ gulp.task \ls, ->
   .pipe gulp-livescript!
   .pipe gulp.dest '.'
 
-gulp.task \build, ->
+gulp.task \build, <[ls]> ->
   gulp.src [
     'lib/laweasyread.debug.js'
     'laweasyread.js'
@@ -42,11 +42,11 @@ gulp.task \express, ->
   app.listen EXPRESSPORT
   gulp-util.log 'Listening on port: ' + EXPRESSPORT
 
-gulp.task \watch, ->
+gulp.task \watch, <[jade build]> ->
   server.listen LIVERELOADPORT, ->
     return gulp-util.log it if it
     gulp.watch 'src/*.jade', <[jade]>
-    gulp.watch 'src/*.ls', <[ls]>
+    gulp.watch 'src/*.ls', <[build]>
 
-gulp.task \default, <[jade ls build express watch]>
+gulp.task \default, <[express watch]>
 
