@@ -1,4 +1,4 @@
-angular.module 'app.directives' []
+angular.module 'ly.law-easy-read' []
 .directive \lawEasyRead ->
   restrict: \A
   link: (scope, elem) !-> LER.parse elem.0

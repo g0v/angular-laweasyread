@@ -1,5 +1,5 @@
 (function(){
-  angular.module('app.directives', []).directive('lawEasyRead', function(){
+  angular.module('ly.law-easy-read', []).directive('lawEasyRead', function(){
     return {
       restrict: 'A',
       link: function(scope, elem){
