@@ -3,8 +3,9 @@
     return {
       restrict: 'A',
       link: function(scope, elem){
-        console.log(elem.text());
-        LER.parse(elem[0]);
+        scope.$evalAsync(function(){
+          LER.parse(elem[0]);
+        });
       }
     };
   }).directive('togglableLawEasyRead', function(){
