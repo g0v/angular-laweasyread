@@ -3,7 +3,8 @@
     return {
       restrict: 'A',
       link: function(scope, elem, attrs){
-        if (!(scope != null && scope.delay)) {
+        scope.delay == null && (scope.delay = attrs.lerDelay);
+        if (!scope.delay) {
           LER.parse(elem[0]);
         } else {
           $timeout(function(){

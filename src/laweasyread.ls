@@ -2,7 +2,8 @@ angular.module 'ly.law-easy-read' []
 .directive \lawEasyRead <[$timeout]> ++ ($timeout) ->
   restrict: \A
   link: (scope, elem, attrs) !->
-    if not scope?delay then
+    scope.delay ?= attrs.ler-delay
+    if not scope.delay then
       LER.parse elem.0
     else
       $timeout ->
