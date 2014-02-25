@@ -1,15 +1,25 @@
 angular.module 'ly.law-easy-read' []
-.directive \lawEasyRead ->
+.directive \lawEasyRead <[$timeout]> ++ ($timeout) ->
   restrict: \A
-  link: (scope, elem) !->
-    scope.$evalAsync !-> LER.parse elem.0
+  link: (scope, elem, attrs) !->
+    if not scope?delay then
+      LER.parse elem.0
+    else
+      $timeout ->
+        LER.parse elem.0
+      , +scope.delay
 .directive \togglableLawEasyRead ->
   transclude: true
   template: '<span ng-transclude ng-hide="enabled"></span><span ng-transclude ng-show="enabled" law-easy-read></span>'
   restrict: \A
-  scope: true
+  # use isolated scope and give up to co-op with ng-click
+  scope:
+    delay:   \@lerDelay
+    enabled: \@lerEnabled
   link: (scope, elem, attrs) !->
-    scope.$on \LER:toggle (e, v) ->
-      scope.enabled = if v is undefined then not scope.enabled else !!v
-    scope.$watch attrs.togglableLawEasyRead, !->
-      scope.enabled = it
+    scope
+      ..$watch attrs.ler-enabled, !->
+        scope.enabled = it
+      ..toggle = ->
+        @enabled = if it is undefined then !@enabled else !!it
+      ..$on \LER:toggle (e, v) -> scope.toggle v
